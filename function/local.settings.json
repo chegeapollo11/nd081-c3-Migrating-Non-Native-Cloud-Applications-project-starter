@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=storageaccountudacib384;AccountKey=6pRASGghicGmo4QMcFFMYW8ocxnaLQyrQkhXY/n15M+cJyi2ZDtKRyOAb3ObDRgmiY/ATo88RuuS4fgcbX2WOg==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "apolloudacityservicebus_SERVICEBUS": "Endpoint=sb://apollo-udacity-service-bus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=vsy+2C47VjGUXCixdT2v7GaoxLjgcY2i6DLMhB0EDhs="
+  }
+}
