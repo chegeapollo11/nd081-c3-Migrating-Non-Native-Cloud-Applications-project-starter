@@ -63,9 +63,20 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 
 | Azure Resource | Service Tier | Monthly Cost |
 | ------------ | ------------ | ------------ |
-| *Azure Postgres Database* |     |              |
-| *Azure Service Bus*   |         |              |
-| ...                   |         |              |
+| *Azure Database for PostgreSQL server* | Basic | $25.80 |
+| *Service Bus Namespace* | Basic | Variable ($0.05 per million operations) |
+| *Storage account* | general purpose v2 (Standard/Hot) | Variable ($0.00081/GB) |
+| *Function App* | Consumption (Serverless) | Variable ($0.20 per million executions + $0.000016/GB-s for execution time) |
+| *App Service* | F1 | $0.00 (Free) |
+| **Total Cost** |  | **~ $26.05** |
 
 ## Architecture Explanation
-This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
+Using Azure App Service for the Tech Conf Web Application was my preferred choice due to the following reasons:
+1. Azure App Service offers a platform as a service solution that is quick, easy and straight forward to configure and deploy for an application built using the Python Flask framework such as the Tech Conf web application.
+2. Azure App Service has a free (F1) pricing tier which offers a free and cost effective solution for non production applications which is our current scenario.
+3. Customization of the underlying host operating system and installation of additonal software was not a requirement hence Azure App Service offered an out of the box solution that could host and run the Tech Conf web application.
+
+Using an Azure Function App together with an Azure Service Bus Queue for the notification sending logic was my preferred choice due to the following reasons:
+1. Sending emails on average could easily take more than 30 seconds especially when sending notifcations to many recipients so having this logic in the front end application results into slower response rates and a poor user experience. Moving this functionality to an azure function ensures that this logic is processed asynchronously in a background task resulting into faster response times for the front end application and hence a better user experience.
+2. Azure Function Apps configured with a Consumption Plan for the Hosting option are charged only when the function executes and based on the execution time of the function thus is a cost effective solution.
+3. Moving the send notification logic to a background job using an Azure Function App also results in a scaleable solution that can handle millions of notifications as the number of application users grows. Send notification requests are now processed outside the front end application resulting into less utilization of server resources for the front end application and hence the capability to support more users. 
